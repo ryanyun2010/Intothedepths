@@ -3,28 +3,79 @@ class Player {
         this.x = x;
         this.y = y;
         this.direction = 3; // 0 right 1 down 2 left 3 up
+        this.dashCooldown = 30;
+        this.dashCooldownLeft = 0;
+        this.dashTimeLeft = 0;
+        this.dashDirection = 0;
     }
     draw() {
+        this.dashTimeLeft--;
+        this.dashCooldownLeft--;
+        if(this.dashTimeLeft > 0){
+           if(this.dashDirection == 0){
+            this.x += 12;
+           }else if(this.dashDirection == 1){
+            this.y += 12;
+           }else if(this.dashDirection == 2){
+            this.x -=12
+           }else if(this.dashDirection == 3){
+            this.y -= 12;
+           }
+        }
         fill("black");
         noStroke;
         ellipse(this.x, this.y, 50, 50);
-
     }
+    dash(){
+        if(this.dashCooldownLeft < 0){
+        this.dashTimeLeft = 7;
+        this.dashCooldownLeft = this.dashCooldown;
+        this.dashDirection = "NONE";
+        if (register.s || register.ArrowDown) {
+            this.dashDirection = 1;
+        }
+        if (register.w || register.ArrowUp) {
+            this.dashDirection = 3
+        }
+        if (register.a || register.ArrowLeft) {
+            this.dashDirection = 2;
+        }
+        if (register.d || register.ArrowRight) {
+            this.dashDirection = 0;
+        }
+        if(this.dashDirection == "NONE"){
+            this.dashCooldownLeft = 0;
+            this.dashTimeLeft = 0;
+        }
+        }
+    }
+
 }
 
 class Enemy {
-    constructor(x,y,w,h){
+    constructor(health,x,y,w,h){
+        this.health = health;
         this.x = x;
         this.y = y;
         this.w = w;
         this.h = h;
+        this.iframes = 10;
     }
     draw(){
+
         fill("black")
         noStroke();
         rect(this.x, this.y, this.w, this.h);
-        if(sword.checkHit(this.x, this.y,this.w, this.h)){
-            this.x = -1000;
+        this.iframes --;
+        if(sword.checkHit(this.x, this.y,this.w, this.h)){ 
+            if(this.iframes < 0){
+            this.health -= sword.damage;
+            this.iframes = 10;
+            }
+            if(this.health < 0){
+                enemies.splice(enemies.indexOf(this),1);
+                return;
+            }
         }
 
     }
@@ -198,7 +249,7 @@ class Sword {
 
 var player = new Player(350, 350);
 var sword = new Sword(3, 3, 3, 10);
-var enemy = new Enemy(200,200,50,50);
+var enemies = [new Enemy(5,200,200,50,50), new Enemy(5,100,200,20,20)];
 
 
 
@@ -211,8 +262,9 @@ function draw() {
     background(220)
     player.draw();
     sword.draw();
-    enemy.draw();
-
+    for(var e of enemies){
+        e.draw();
+    }
 
     if (register.s || register.ArrowDown) {
         player.y += 5;
@@ -225,6 +277,10 @@ function draw() {
     }
     if (register.d || register.ArrowRight) {
         player.x += 5;
+    }
+    if(register.q){
+        console.log("DASH")
+        player.dash();
     }
 }
 
