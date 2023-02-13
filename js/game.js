@@ -60,12 +60,9 @@ class Enemy {
         this.w = w;
         this.h = h;
         this.iframes = 10;
+        this.speed = 1;
     }
-    draw(){
-
-        fill("black")
-        noStroke();
-        rect(this.x, this.y, this.w, this.h);
+    check(){
         this.iframes --;
         if(sword.checkHit(this.x, this.y,this.w, this.h)){ 
             if(this.iframes < 0){
@@ -74,10 +71,28 @@ class Enemy {
             }
             if(this.health < 0){
                 enemies.splice(enemies.indexOf(this),1);
+                for(var e of enemies){
+                    e.draw();
+                }
                 return;
             }
         }
+    }
+    move(){
+        this.angle = atan2(player.y - this.y,player.x - this.x);
+        let xspeed = this.speed * cos(this.angle);
+        let yspeed = this.speed * sin(this.angle);
+        this.x += xspeed;
+        this.y += yspeed;
 
+    }
+    draw(){
+      
+        
+        fill("black")
+        noStroke();
+        rect(this.x, this.y, this.w, this.h);
+       
     }
 }
 
@@ -249,7 +264,23 @@ class Sword {
 
 var player = new Player(350, 350);
 var sword = new Sword(3, 3, 3, 10);
-var enemies = [new Enemy(5,200,200,50,50), new Enemy(5,100,200,20,20)];
+var enemies = [new Enemy(1,200,200,50,50), new Enemy(1,100,200,50,50)];
+enemies.push(new Enemy(1,Math.random()*700,Math.random() * 700,50,50))
+enemies.push(new Enemy(1,Math.random()*700,Math.random() * 700,50,50))
+enemies.push(new Enemy(1,Math.random()*700,Math.random() * 700,50,50))
+enemies.push(new Enemy(1,Math.random()*700,Math.random() * 700,50,50))
+enemies.push(new Enemy(1,Math.random()*700,Math.random() * 700,50,50))
+enemies.push(new Enemy(1,Math.random()*700,Math.random() * 700,50,50))
+enemies.push(new Enemy(1,Math.random()*700,Math.random() * 700,50,50))
+enemies.push(new Enemy(1,Math.random()*700,Math.random() * 700,50,50))
+enemies.push(new Enemy(1,Math.random()*700,Math.random() * 700,50,50))
+enemies.push(new Enemy(1,Math.random()*700,Math.random() * 700,50,50))
+enemies.push(new Enemy(1,Math.random()*700,Math.random() * 700,50,50))
+enemies.push(new Enemy(1,Math.random()*700,Math.random() * 700,50,50))
+enemies.push(new Enemy(1,Math.random()*700,Math.random() * 700,50,50))
+enemies.push(new Enemy(1,Math.random()*700,Math.random() * 700,50,50))
+
+
 
 
 
@@ -259,10 +290,13 @@ function setup() {
 }
 
 function draw() {
+    enemies.push(new Enemy(1,Math.random()*700,Math.random() * 700,50,50))
     background(220)
     player.draw();
     sword.draw();
     for(var e of enemies){
+        e.move();
+        e.check();
         e.draw();
     }
 
