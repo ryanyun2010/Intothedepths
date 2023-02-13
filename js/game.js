@@ -52,28 +52,28 @@ class Sword {
         if (this.swinging) {
             if (this.charges == this.maxcharges) {
                 if (player.direction == 0) {
-                    if (x + w > player.x + 25 && player.y + h > player.y - 85 && x < player.x + 115 && y < player.y + 85) {
+                    if (x + w > player.x + 25 && y + h > player.y - 85 && x < player.x + 115 && y < player.y + 85) {
                         return true;
                     } else {
                         return false;
                     }
                 }
                 if (player.direction == 1) {
-                    if (x + w > player.x - 85 && player.y + h > player.y + 25 && x < player.x + 85 && y < player.y + 115) {
+                    if (x + w > player.x - 85 && y + h > player.y + 25 && x < player.x + 85 && y < player.y + 115) {
                         return true;
                     } else {
                         return false;
                     }
                 }
                 if (player.direction == 2) {
-                    if (x + w > player.x - 110 && player.y + h > player.y - 85 && x < player.x - 20 && y < player.y + 85) {
+                    if (x + w > player.x - 110 && y + h > player.y - 85 && x < player.x - 20 && y < player.y + 85) {
                         return true;
                     } else {
                         return false;
                     }
                 }
                 if (player.direction == 3) {
-                    if (x + w > player.x - 85 && player.y + h > player.y - 110 && x < player.x + 85 && y < player.y - 20) {
+                    if (x + w > player.x - 85 && y + h > player.y - 110 && x < player.x + 85 && y < player.y - 20) {
                         return true;
                     } else {
                         return false;
@@ -81,28 +81,28 @@ class Sword {
                 }
             } else {
                 if (player.direction == 0) {
-                    if (x + w > player.x +20 && player.y + h > player.y - 100 && x < player.x + 100 && y < player.y +200) {
+                    if (x + w > player.x +20 && y + h > player.y - 100 && x < player.x + 100 && y < player.y +200) {
                         return true;
                     } else {
                         return false;
                     }
                 }
                 if (player.direction == 1) {
-                    if (x + w > player.x -100 && player.y + h > player.y +28 && x < player.x + 100 && y < player.y +108) {
+                    if (x + w > player.x -100 && y + h > player.y +28 && x < player.x + 100 && y < player.y +108) {
                         return true;
                     } else {
                         return false;
                     }
                 }
                 if (player.direction == 2) {
-                    if (x + w > player.x -110 && player.y + h > player.y -100 && x < player.x + 30 && y < player.y +100) {
+                    if (x + w > player.x -110 && y + h > player.y -100 && x < player.x + 30 && y < player.y +100) {
                         return true;
                     } else {
                         return false;
                     }
                 }
                 if (player.direction == 3) {
-                    if (x + w > player.x -100 && player.y + h > player.y -102 && x < player.x + 200 && y < player.y -22) {
+                    if (x + w > player.x -100 && y + h > player.y -102 && x < player.x + 200 && y < player.y -22) {
                         return true;
                     } else {
                         return false;
